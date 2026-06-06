@@ -16,7 +16,9 @@ This repository serves as a base reference derived from extensive blind porting 
 *   **`patches/`**: The core fixes. This mirrors the Android build tree structure (`device/oneplus/sm8450-common/` and `device/oneplus/udon/`).
     *   **VINTF Matrices:** Updated `manifest_dsds.xml` and `device_framework_matrix.xml` to force **AIDL** for Oplus Radio, IMS, and AppRadio (resolving `odm` bootloops).
     *   **Init Scripts:** Synced `init.oplus.rc` (HBM node overrides) and `init.oplus.sh` (Multisim detection).
-    *   **Makefiles (`common.mk`, `crdroid_udon.mk`):** Enforces `oplus` as the manufacturer/brand and includes missing critical updater packages (`update_engine`, `update_verifier`, `nfc-service-nxp`).
+    *   **Makefiles (`common.mk`, `crdroid_udon.mk`, `device.mk`):** Enforces `oplus` as the manufacturer/brand and includes missing critical updater packages (`update_engine`, `update_verifier`, `nfc-service-nxp`).
+    *   **BoardConfig (`BoardConfig.mk`):** Contains the critical `BOARD_EXCLUDE_KERNEL_FROM_RECOVERY_IMAGE := true` flag and kernel prebuilt logic.
+    *   **Kernel Blocklists (`modules.blocklist`):** Prevents kernel panics during boot by blacklisting conflicting A15 modules.
 
 ---
 

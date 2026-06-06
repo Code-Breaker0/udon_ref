@@ -424,7 +424,24 @@ PRODUCT_PACKAGES += \
     update_engine \
     update_engine_client \
     update_verifier \
-    vndservicemanager
+    vndservicemanager \
+    libdisplayconfig.system.qti \
+    libgralloc.system.qti \
+    libqdMetaData.system \
+    extphonelib \
+    extphonelib-product \
+    qti-telephony-hidl-wrapper \
+    qti-telephony-hidl-wrapper-prd \
+    qti-telephony-utils \
+    qti-telephony-utils-prd \
+    ims-ext-common
 # Storage
 $(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
 $(call inherit-product, vendor/oneplus/sm8450-common/sm8450-common-vendor.mk)
+
+# Dolby
+# hardware/dolby removed due to libeffectproxy.so packaging conflict with vendor tree.
+# Configuration injected manually via crdroid_udon.mk
+
+# Display Commonsys
+$(call inherit-product-if-exists, vendor/qcom/opensource/commonsys/display/config/display-product-commonsys.mk)

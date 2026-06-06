@@ -35,3 +35,5 @@ PRODUCT_BUILD_PROP_OVERRIDES += \
 
 BUILD_FINGERPRINT := OnePlus/CPH2487/OP5961L1:13/SKQ1.221119.001/T.R4T3.1057738-62b8-3b9:user/release-keys
 PRODUCT_BUILD_GENERIC_OTA_PACKAGE := true
+PRODUCT_COPY_FILES += vendor/oneplus/udon/proprietary/odm/etc/dolby/dax-default.xml:$(TARGET_COPY_OUT_ODM)/etc/dolby/dax-default.xml
+PRODUCT_COPY_FILES += vendor/oneplus/udon/proprietary/odm/etc/virtual_audio_policy_configuration.xml:$(TARGET_COPY_OUT_ODM)/etc/virtual_audio_policy_configuration.xml

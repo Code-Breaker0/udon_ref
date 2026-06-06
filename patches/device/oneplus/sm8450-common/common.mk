@@ -7,6 +7,7 @@ TARGET_DISABLE_EPPE := true
 
 # A/B
 $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota/launch_with_vendor_ramdisk.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit_only.mk)
 
 AB_OTA_POSTINSTALL_CONFIG += \
     RUN_POSTINSTALL_system=true \
@@ -445,3 +446,7 @@ $(call inherit-product, vendor/oneplus/sm8450-common/sm8450-common-vendor.mk)
 
 # Display Commonsys
 $(call inherit-product-if-exists, vendor/qcom/opensource/commonsys/display/config/display-product-commonsys.mk)
+PRODUCT_ODM_PROPERTIES += ro.product.odm.name=CPH2487
+PRODUCT_ODM_PROPERTIES += ro.product.odm.model=CPH2487
+PRODUCT_ODM_PROPERTIES += ro.product.odm.device=OP5961L1
+PRODUCT_ODM_PROPERTIES += ro.odm.build.type=userdebug

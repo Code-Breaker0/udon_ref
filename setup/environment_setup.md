@@ -1,6 +1,6 @@
 # OnePlus 11R (`udon`) Build Environment Setup
 
-This document provides the necessary commands and dependencies to set up a clean build environment for Android porting, specifically for `udon`.
+This document provides the necessary commands and dependencies to set up a clean, zero-configuration build environment for Android porting on the OnePlus 11R (`udon`).
 
 ## 1. System Dependencies (Ubuntu/Debian)
 
@@ -22,15 +22,15 @@ Ensure you have the following tools installed and accessible in your `$PATH` (e.
     chmod a+x ~/bin/repo
     export PATH=~/bin:$PATH
     ```
-*   **Payload Dumper Go:** For extracting stock/reference OTA payloads.
+*   **Payload Dumper Go:** For extracting stock/reference OTA payloads (useful for future porting).
     ```bash
-    # Install via Go if available
     go install github.com/ssut/payload-dumper-go@latest
-    # Move to bin
     mv ~/go/bin/payload-dumper-go ~/bin/
     ```
 
-## 3. Initializing the Source Tree (Example: crDroid 15.0 / Android 15)
+## 3. Initializing the Core Source Tree (Example: crDroid 15.0 / Android 15)
+
+First, initialize the generic ROM source tree.
 
 ```bash
 mkdir -p ~/crdroid-build/15.0
@@ -39,32 +39,41 @@ repo init -u https://github.com/crdroidandroid/android.git -b 15.0 --git-lfs
 repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags
 ```
 
-## 4. Cloning the `udon` Device Trees
+## 4. Injecting the Fully Patched `udon` Source Trees
 
-You will need the device, common, vendor, and kernel (prebuilt) trees. 
+This `udon_ref` repository already contains the **complete, fully-patched device, vendor, and kernel source trees**. You do not need to clone from LineageOS and apply manual patches. 
 
-*(Note: Replace with your specific forks if you have them)*
-```bash
-# Clone the trees into the expected directories
-git clone https://github.com/LineageOS/android_device_oneplus_udon.git -b lineage-22.0 device/oneplus/udon
-git clone https://github.com/LineageOS/android_device_oneplus_sm8450-common.git -b lineage-22.0 device/oneplus/sm8450-common
-# Vendor and Kernel trees typically come from GitLab or specific dumps
-```
-
-## 5. Applying the Bootloop Fixes
-
-Before building, you **must** apply the patches found in this repository (`udon_ref/patches/`) to the source tree. These fix critical AIDL/HIDL mismatches and missing packages that cause bootloops on `udon`.
+Simply copy the `source/` folder from this repository directly into your build environment. This guarantees you are using the VINTF-aligned, bootloop-free baseline.
 
 ```bash
-cp -r /path/to/udon_ref/patches/* ~/crdroid-build/15.0/
+# Assuming you cloned udon_ref to ~/udon_ref
+cd ~/crdroid-build/15.0
+cp -r ~/udon_ref/source/* ./
 ```
+*Note: The bundled trees use a prebuilt kernel to bypass module signing panics on Android 15/16 ports.*
 
-## 6. Building the ROM
+## 5. Building the ROM
+
+Once the sources are merged, you are ready to build.
 
 ```bash
 cd ~/crdroid-build/15.0
 source build/envsetup.sh
 lunch crdroid_udon-ap3a-userdebug
+
+# Optimize memory usage during heavy linking phases
 export MALLOC_ARENA_MAX=2
+
+# Start the build (adjust -j to your CPU threads)
 mka bacon -j$(nproc)
 ```
+
+---
+
+## References & Acknowledgments
+
+This porting baseline would not be possible without the incredible open-source community.
+*   **crDroid Android:** Base ROM framework and build system. ([GitHub](https://github.com/crdroidandroid))
+*   **LineageOS Project:** Initial device tree (`sm8450-common` and `udon`) structure and hardware abstraction layers. ([GitHub](https://github.com/LineageOS))
+*   **payload-dumper-go:** By *ssut*, used extensively for extracting firmware and proprietary blobs from OxygenOS payload.bin files. ([GitHub](https://github.com/ssut/payload-dumper-go))
+*   **Qualcomm & Oplus:** Proprietary blobs and kernel bases.

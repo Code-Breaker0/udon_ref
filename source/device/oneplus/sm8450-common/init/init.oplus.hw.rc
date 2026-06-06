@@ -1,0 +1,9 @@
+#
+# Copyright (C) 2022-2023 The LineageOS Project
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+# udon
+on property:ro.boot.prjname=22881
+    setprop ro.boot.hardware.revision "IN"

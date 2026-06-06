@@ -1,0 +1,8 @@
+# Bluetooth
+bluetooth.device.default_name=OnePlus 11R
+
+# Graphics
+ro.surface_flinger.set_touch_timer_ms=0
+
+# USB
+vendor.usb.product_string=OnePlus 11R

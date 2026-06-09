@@ -1,0 +1,138 @@
+diff --git a/doze/src/org/lineageos/settings/doze/PickupSensor.kt b/doze/src/org/lineageos/settings/doze/PickupSensor.kt
+index 180a440..a57f536 100644
+--- a/doze/src/org/lineageos/settings/doze/PickupSensor.kt
++++ b/doze/src/org/lineageos/settings/doze/PickupSensor.kt
+@@ -13,6 +13,7 @@ import android.hardware.SensorManager
+ import android.os.PowerManager
+ import android.os.SystemClock
+ import android.util.Log
++import android.view.Display
+ 
+ import java.util.concurrent.Executors
+ 
+@@ -38,8 +39,10 @@ class PickupSensor(
+         if (event.values[0] == sensorValue) {
+             if (Utils.isPickUpSetToWake(context)) {
+                 wakeLock.acquire(WAKELOCK_TIMEOUT_MS)
+-                powerManager.wakeUpWithProximityCheck(
+-                    SystemClock.uptimeMillis(), PowerManager.WAKE_REASON_GESTURE, TAG
++                powerManager.wakeUp(
++                    SystemClock.uptimeMillis(),
++                    PowerManager.WAKE_REASON_GESTURE, TAG,
++                    Display.DEFAULT_DISPLAY
+                 )
+             } else {
+                 Utils.launchDozePulse(context)
+diff --git a/hidl/fingerprint/Android.bp b/hidl/fingerprint/Android.bp
+index 571bef6..0255b39 100644
+--- a/hidl/fingerprint/Android.bp
++++ b/hidl/fingerprint/Android.bp
+@@ -2,8 +2,7 @@ cc_binary {
+     name: "android.hardware.biometrics.fingerprint@2.3-service.oplus",
+     defaults: ["hidl_defaults"],
+     init_rc: ["android.hardware.biometrics.fingerprint@2.3-service.oplus.rc"],
+-    vintf_fragments: ["android.hardware.biometrics.fingerprint@2.3-service.oplus.xml"],
+-    vendor: true,
++    device_specific: true,
+     relative_install_path: "hw",
+     srcs: [
+         "BiometricsFingerprint.cpp",
+diff --git a/hidl/fingerprint/BiometricsFingerprint.h b/hidl/fingerprint/BiometricsFingerprint.h
+index 49f09e0..09fbf5c 100644
+--- a/hidl/fingerprint/BiometricsFingerprint.h
++++ b/hidl/fingerprint/BiometricsFingerprint.h
+@@ -15,6 +15,7 @@
+  */
+ 
+ #pragma once
++#include <fstream>
+ 
+ #include <android-base/properties.h>
+ #include <android/hardware/biometrics/fingerprint/2.1/types.h>
+@@ -115,11 +116,23 @@ class BiometricsFingerprint : public IBiometricsFingerprint,
+     }
+ 
+     bool setDimlayerHbm(unsigned int value) {
+-        return isUdfps() && ioctl(mOplusDisplayFd, PANEL_IOCTL_SET_DIMLAYER_HBM, &value) == 0;
++        if (!isUdfps()) return false;
++        std::ofstream file("/sys/kernel/oplus_display/dimlayer_hbm");
++        if (file.is_open()) {
++            file << value;
++            return true;
++        }
++        return ioctl(mOplusDisplayFd, PANEL_IOCTL_SET_DIMLAYER_HBM, &value) == 0;
+     }
+ 
+     bool setFpPress(unsigned int value) {
+-        return isUdfps() && ioctl(mOplusDisplayFd, PANEL_IOCTL_SET_FP_PRESS, &value) == 0;
++        if (!isUdfps()) return false;
++        std::ofstream file("/sys/kernel/oplus_display/notify_fppress");
++        if (file.is_open()) {
++            file << value;
++            return true;
++        }
++        return ioctl(mOplusDisplayFd, PANEL_IOCTL_SET_FP_PRESS, &value) == 0;
+     }
+ 
+     sp<IOplusBiometricsFingerprint> mOplusBiometricsFingerprint;
+diff --git a/hidl/fingerprint/android.hardware.biometrics.fingerprint@2.3-service.oplus.rc b/hidl/fingerprint/android.hardware.biometrics.fingerprint@2.3-service.oplus.rc
+index e3a395f..7dffa00 100644
+--- a/hidl/fingerprint/android.hardware.biometrics.fingerprint@2.3-service.oplus.rc
++++ b/hidl/fingerprint/android.hardware.biometrics.fingerprint@2.3-service.oplus.rc
+@@ -1,4 +1,5 @@
+-service vendor.fps_hal_oplus /vendor/bin/hw/android.hardware.biometrics.fingerprint@2.3-service.oplus
++service vendor.fps_hal_oplus /odm/bin/hw/android.hardware.biometrics.fingerprint@2.3-service.oplus
+     class late_start
+     user system
+-    group system
++    group system input
++    override
+diff --git a/hidl/powershare/Android.bp b/hidl/powershare/Android.bp
+index 07e23ca..b7b6929 100644
+--- a/hidl/powershare/Android.bp
++++ b/hidl/powershare/Android.bp
+@@ -13,6 +13,6 @@ cc_binary {
+         "libbase",
+         "libhidlbase",
+         "libutils",
+-        "vendor.lineage.powershare@1.0",
++        "vendor.lineage.powershare",
+     ],
+ }
+diff --git a/sepolicy/qti/vendor/file_contexts b/sepolicy/qti/vendor/file_contexts
+index e28145d..9d8c8e3 100644
+--- a/sepolicy/qti/vendor/file_contexts
++++ b/sepolicy/qti/vendor/file_contexts
+@@ -54,7 +54,6 @@
+ # NFC
+ /(odm|vendor/odm)/bin/hw/vendor\.qti\.esepowermanager@1\.1-service          u:object_r:vendor_hal_esepowermanager_qti_exec:s0
+ /(odm|vendor/odm)/bin/hw/vendor\.qti\.secure_element@1\.2-service           u:object_r:hal_secure_element_default_exec:s0
+-/(vendor|system/vendor)/bin/hw/android\.hardware\.nfc-service\.nxp          u:object_r:hal_nfc_default_exec:s0
+ /dev/pn553                                                                  u:object_r:nfc_device:s0
+ 
+ # OPlus touch
+diff --git a/sepolicy/qti/vendor/hal_fingerprint_default.te b/sepolicy/qti/vendor/hal_fingerprint_default.te
+index e0e92c5..2463f7d 100644
+--- a/sepolicy/qti/vendor/hal_fingerprint_default.te
++++ b/sepolicy/qti/vendor/hal_fingerprint_default.te
+@@ -7,7 +7,7 @@ hal_client_domain(hal_fingerprint_default, vendor_hal_oplus_performance)
+ hal_client_domain(hal_fingerprint_default, vendor_hal_oplus_touch_aidl)
+ hal_client_domain(hal_fingerprint_default, vendor_hal_oplus_touch_daemon)
+ 
+-allow hal_fingerprint_default fwk_osense_aidl_service:service_manager find;
++#allow hal_fingerprint_default fwk_osense_aidl_service:service_manager find;
+ allow hal_fingerprint_default hal_oplus_touch_aidl_service:service_manager find;
+ allow hal_fingerprint_default vendor_hal_orms_hwservice:hwservice_manager find;
+ allow hal_fingerprint_default hal_oplus_touch_aidl_service:service_manager find;
+diff --git a/sepolicy/qti/vendor/service_contexts b/sepolicy/qti/vendor/service_contexts
+index fb90c45..99baa9d 100644
+--- a/sepolicy/qti/vendor/service_contexts
++++ b/sepolicy/qti/vendor/service_contexts
+@@ -8,7 +8,6 @@ vendor.oplus.hardware.commondcs.ICommonDcsAidlHalService/default    u:object_r:h
+ vendor.oplus.hardware.olc2.IOplusLogCore/default                    u:object_r:hal_fingerprint_service:s0
+ 
+ # NFC
+-vendor.nxp.nxpnfc_aidl.INxpNfc/default    u:object_r:hal_nfc_service:s0
+ 
+ # OSENSE
+ vendor.oplus.hardware.osense.client.IOsenseAidlHalReporter/default    u:object_r:hal_oplus_osense_aidl_service:s0

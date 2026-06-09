@@ -1,0 +1,35 @@
+diff --git a/src/drivers/driver_nl80211_event.c b/src/drivers/driver_nl80211_event.c
+index 0ca21ee..1900e30 100644
+--- a/src/drivers/driver_nl80211_event.c
++++ b/src/drivers/driver_nl80211_event.c
+@@ -2869,7 +2869,7 @@ static void qca_nl80211_key_mgmt_auth(struct wpa_driver_nl80211_data *drv,
+ #ifdef ANDROID_LIB_EVENT
+ 	wpa_driver_nl80211_driver_event(
+ 		drv, OUI_QCA, QCA_NL80211_VENDOR_SUBCMD_KEY_MGMT_ROAM_AUTH,
+-		data, len);
++		(u8 *)data, len);
+ #endif /* ANDROID_LIB_EVENT */
+ #endif /* ANDROID */
+ }
+@@ -3435,18 +3435,18 @@ static void nl80211_vendor_event(struct wpa_driver_nl80211_data *drv,
+ 	 * qca_nl80211_key_mgmt_auth() and drv->pending_roam_data). */
+ 	if (!(vendor_id == OUI_QCA &&
+ 	      subcmd == QCA_NL80211_VENDOR_SUBCMD_KEY_MGMT_ROAM_AUTH))
+-		wpa_driver_nl80211_driver_event(drv, vendor_id, subcmd, data,
++		wpa_driver_nl80211_driver_event(drv, vendor_id, subcmd, (u8 *)data,
+ 						len);
+ #endif /* ANDROID_LIB_EVENT */
+ #endif /* ANDROID */
+ 
+ 	switch (vendor_id) {
+ 	case OUI_QCA:
+-		nl80211_vendor_event_qca(drv, subcmd, data, len);
++		nl80211_vendor_event_qca(drv, subcmd, (u8 *)data, len);
+ 		break;
+ #if defined(CONFIG_DRIVER_NL80211_BRCM) || defined(CONFIG_DRIVER_NL80211_SYNA) || defined(CONFIG_BRCM_SAE)
+ 	case OUI_BRCM:
+-		nl80211_vendor_event_brcm(drv, subcmd, data, len);
++		nl80211_vendor_event_brcm(drv, subcmd, (u8 *)data, len);
+ 		break;
+ #endif /* CONFIG_DRIVER_NL80211_BRCM || CONFIG_DRIVER_NL80211_SYNA || CONFIG_BRCM_SAE */
+ 	default:

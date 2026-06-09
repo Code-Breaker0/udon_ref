@@ -1,0 +1,290 @@
+diff --git a/Android.mk b/Android.mk
+index 29062e3..9caf3a3 100644
+--- a/Android.mk
++++ b/Android.mk
+@@ -46,11 +46,11 @@ $(IMS_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
+ 	@rm -rf $@
+ 	$(hide) ln -sf /system_ext/lib64/$(notdir $@) $@
+ 
+-RFS_MSM_ADSP_SYMLINKS := $(TARGET_OUT_VENDOR)/rfs/msm/adsp/
++RFS_MSM_ADSP_SYMLINKS := $(TARGET_OUT_VENDOR)/rfs/msm/adsp
+ $(RFS_MSM_ADSP_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
+ 	@echo "Creating RFS MSM ADSP folder structure: $@"
+ 	@rm -rf $@/*
+-	@mkdir -p $(dir $@)/readonly/vendor
++	@mkdir -p $@/readonly/vendor
+ 	$(hide) ln -sf /data/vendor/tombstones/rfs/lpass $@/ramdumps
+ 	$(hide) ln -sf /mnt/vendor/persist/rfs/msm/adsp $@/readwrite
+ 	$(hide) ln -sf /mnt/vendor/persist/rfs/shared $@/shared
+@@ -58,11 +58,11 @@ $(RFS_MSM_ADSP_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
+ 	$(hide) ln -sf /vendor/firmware_mnt $@/readonly/firmware
+ 	$(hide) ln -sf /vendor/firmware $@/readonly/vendor/firmware
+ 
+-RFS_MSM_CDSP_SYMLINKS := $(TARGET_OUT_VENDOR)/rfs/msm/cdsp/
++RFS_MSM_CDSP_SYMLINKS := $(TARGET_OUT_VENDOR)/rfs/msm/cdsp
+ $(RFS_MSM_CDSP_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
+ 	@echo "Creating RFS MSM CDSP folder structure: $@"
+ 	@rm -rf $@/*
+-	@mkdir -p $(dir $@)/readonly/vendor
++	@mkdir -p $@/readonly/vendor
+ 	$(hide) ln -sf /data/vendor/tombstones/rfs/cdsp $@/ramdumps
+ 	$(hide) ln -sf /mnt/vendor/persist/rfs/msm/cdsp $@/readwrite
+ 	$(hide) ln -sf /mnt/vendor/persist/rfs/shared $@/shared
+@@ -70,11 +70,11 @@ $(RFS_MSM_CDSP_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
+ 	$(hide) ln -sf /vendor/firmware_mnt $@/readonly/firmware
+ 	$(hide) ln -sf /vendor/firmware $@/readonly/vendor/firmware
+ 
+-RFS_MSM_MPSS_SYMLINKS := $(TARGET_OUT_VENDOR)/rfs/msm/mpss/
++RFS_MSM_MPSS_SYMLINKS := $(TARGET_OUT_VENDOR)/rfs/msm/mpss
+ $(RFS_MSM_MPSS_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
+ 	@echo "Creating RFS MSM MPSS folder structure: $@"
+ 	@rm -rf $@/*
+-	@mkdir -p $(dir $@)/readonly/vendor
++	@mkdir -p $@/readonly/vendor
+ 	$(hide) ln -sf /data/vendor/olog $@/olog
+ 	$(hide) ln -sf /data/vendor/tombstones/rfs/modem $@/ramdumps
+ 	$(hide) ln -sf /mnt/vendor/persist/rfs/msm/mpss $@/readwrite
+@@ -83,11 +83,11 @@ $(RFS_MSM_MPSS_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
+ 	$(hide) ln -sf /vendor/firmware_mnt $@/readonly/firmware
+ 	$(hide) ln -sf /vendor/firmware $@/readonly/vendor/firmware
+ 
+-RFS_MSM_SLPI_SYMLINKS := $(TARGET_OUT_VENDOR)/rfs/msm/slpi/
++RFS_MSM_SLPI_SYMLINKS := $(TARGET_OUT_VENDOR)/rfs/msm/slpi
+ $(RFS_MSM_SLPI_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
+ 	@echo "Creating RFS MSM SLPI folder structure: $@"
+ 	@rm -rf $@/*
+-	@mkdir -p $(dir $@)/readonly/vendor
++	@mkdir -p $@/readonly/vendor
+ 	$(hide) ln -sf /data/vendor/tombstones/rfs/slpi $@/ramdumps
+ 	$(hide) ln -sf /mnt/vendor/persist/rfs/msm/slpi $@/readwrite
+ 	$(hide) ln -sf /mnt/vendor/persist/rfs/shared $@/shared
+@@ -95,11 +95,11 @@ $(RFS_MSM_SLPI_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
+ 	$(hide) ln -sf /vendor/firmware_mnt $@/readonly/firmware
+ 	$(hide) ln -sf /vendor/firmware $@/readonly/vendor/firmware
+ 
+-RFS_MSM_WPSS_SYMLINKS := $(TARGET_OUT_VENDOR)/rfs/msm/wpss/
++RFS_MSM_WPSS_SYMLINKS := $(TARGET_OUT_VENDOR)/rfs/msm/wpss
+ $(RFS_MSM_WPSS_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
+ 	@echo "Creating RFS MSM WPSS folder structure: $@"
+ 	@rm -rf $@/*
+-	@mkdir -p $(dir $@)/readonly/vendor
++	@mkdir -p $@/readonly/vendor
+ 	$(hide) ln -sf /data/vendor/tombstones/rfs/wpss $@/ramdumps
+ 	$(hide) ln -sf /mnt/vendor/persist/rfs/msm/wpss $@/readwrite
+ 	$(hide) ln -sf /mnt/vendor/persist/rfs/shared $@/shared
+@@ -107,7 +107,7 @@ $(RFS_MSM_WPSS_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
+ 	$(hide) ln -sf /vendor/firmware_mnt $@/readonly/firmware
+ 	$(hide) ln -sf /vendor/firmware $@/readonly/vendor/firmware
+ 
+-WIFI_FIRMWARE_SYMLINKS := $(TARGET_OUT_VENDOR)/firmware/
++WIFI_FIRMWARE_SYMLINKS := $(TARGET_OUT_VENDOR)/firmware
+ $(WIFI_FIRMWARE_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
+ 	@echo "Creating wifi firmware symlinks: $@"
+ 	@mkdir -p $@/wlan/qca_cld/qca6490
+diff --git a/BoardConfigCommon.mk b/BoardConfigCommon.mk
+index b940b7b..2cc5fe9 100644
+--- a/BoardConfigCommon.mk
++++ b/BoardConfigCommon.mk
+@@ -103,6 +103,8 @@ TARGET_INIT_VENDOR_LIB := //$(COMMON_PATH):libinit_oplus
+ # from https://git.codelinaro.org/clo/la/platform/vendor/qcom-opensource/core-utils/-/blob/LA.QSSI.12.0.r1-08700.03-qssi.0/build/utils.mk
+ include $(COMMON_PATH)/build/utils.mk
+ 
++TARGET_KERNEL_VERSION := 5.10
++
+ include $(COMMON_PATH)/kernel/kernel-platform-board.mk
+ include vendor/qcom/opensource/audio-kernel/audio_kernel_vendor_board.mk
+ include vendor/qcom/opensource/camera-kernel/board.mk
+@@ -159,7 +161,7 @@ BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := ext4
+ BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
+ BOARD_VENDOR_DLKMIMAGE_FILE_SYSTEM_TYPE := ext4
+ BOARD_ONEPLUS_DYNAMIC_PARTITIONS_PARTITION_LIST := odm odm_dlkm product system system_ext vendor vendor_dlkm
+-BOARD_ONEPLUS_DYNAMIC_PARTITIONS_SIZE ?= 7511998464
++BOARD_ONEPLUS_DYNAMIC_PARTITIONS_SIZE := 14000000000
+ BOARD_SUPER_PARTITION_GROUPS := oneplus_dynamic_partitions
+ BOARD_SUPER_PARTITION_SIZE ?= 15032385536
+ BOARD_FLASH_BLOCK_SIZE := 262144 # (BOARD_KERNEL_PAGESIZE * 64)
+diff --git a/common.mk b/common.mk
+index a3373fb..0e33d1a 100644
+--- a/common.mk
++++ b/common.mk
+@@ -381,6 +381,7 @@ PRODUCT_PACKAGES += \
+     libprotobuf-cpp-full \
+     librmnetctl
+ 
++
+ # Sensors
+ PRODUCT_PACKAGES += \
+     android.hardware.sensors@2.1-service.multihal \
+@@ -405,12 +406,12 @@ PRODUCT_COPY_FILES += \
+ 
+ # Shipping API
+ PRODUCT_SHIPPING_API_LEVEL := 31
+-BOARD_API_LEVEL := 31
+ 
+ # Soong namespaces
+ PRODUCT_SOONG_NAMESPACES += \
+     $(LOCAL_PATH) \
+-    hardware/oplus
++    hardware/oplus \
++    hardware/qcom-caf/wlan
+ 
+ # Storage
+ $(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
+@@ -529,5 +530,23 @@ PRODUCT_PACKAGES += \
+ PRODUCT_BOOT_JARS += \
+     WfdCommon
+ 
++# Display HAL config
++BUILD_DISPLAY_TECHPACK_SOURCE := true
++$(call inherit-product, hardware/qcom-caf/sm8450/display/config/display-product.mk)
++
++
++# Source-built HALs & services
++PRODUCT_PACKAGES += \
++    android.hardware.power-service.lineage-libperfmgr \
++    android.hardware.thermal-service.qti \
++    android.hardware.usb-service.qti \
++    android.hardware.wifi-service \
++    android.hardware.nfc-service.nxp \
++    vendor.qti.hardware.vibrator.service.oplus \
++    vendor.oplus.hardware.osense.client-service \
++    ipacm \
++    vndservicemanager
++
+ # Inherit from the proprietary files makefile.
+ $(call inherit-product, vendor/oneplus/sm8450-common/sm8450-common-vendor.mk)
++
+diff --git a/device_framework_matrix.xml b/device_framework_matrix.xml
+index c997755..d1c2ee1 100644
+--- a/device_framework_matrix.xml
++++ b/device_framework_matrix.xml
+@@ -111,4 +111,26 @@
+             <instance>default</instance>
+         </interface>
+     </hal>
++    <hal format="aidl" optional="true">
++        <name>vendor.oplus.hardware.communicationcenter</name>
++        <interface>
++            <name>IDmtpService</name>
++            <instance>default</instance>
++        </interface>
++    </hal>
++    <hal format="aidl" optional="true">
++        <name>vendor.oplus.hardware.osense.client</name>
++        <interface>
++            <name>IOsenseAidlHalReporter</name>
++            <instance>default</instance>
++        </interface>
++    </hal>
++    <hal format="aidl" optional="true">
++        <name>vendor.oplus.hardware.touch</name>
++        <version>2</version>
++        <interface>
++            <name>IOplusTouch</name>
++            <instance>default</instance>
++        </interface>
++    </hal>
+ </compatibility-matrix>
+diff --git a/init/init.oplus.rc b/init/init.oplus.rc
+index ef48f94..1ab5a5c 100644
+--- a/init/init.oplus.rc
++++ b/init/init.oplus.rc
+@@ -27,7 +27,6 @@ on early-boot
+     write /sys/bus/msm_subsys/devices/subsys10/restart_level RELATED
+ 
+ on boot
+-    # Display
+     chown system system /sys/kernel/oplus_display/dump_info
+     chown system system /sys/kernel/oplus_display/hbm
+     chown system system /sys/kernel/oplus_display/seed
+@@ -46,6 +45,17 @@ on boot
+     chown system system /sys/kernel/oplus_display/write_panel_reg
+     chown system system /sys/kernel/oplus_display/max_brightness
+     chown system system /sys/kernel/oplus_display/dynamic_osc_clock
++    chmod 0660 /sys/kernel/oplus_display/hbm
++    chmod 0660 /sys/kernel/oplus_display/dimlayer_hbm
++    chmod 0660 /sys/kernel/oplus_display/aod_light_mode_set
++    chmod 0660 /sys/kernel/oplus_display/dimlayer_bl_en
++
++    # ADB / USB early init - force ADB-only mode for debugging
++    # This bypasses the MTP FFS dependency in the mtp,adb path
++    setprop sys.usb.controller a600000.dwc3
++    setprop sys.usb.config adb
++    setprop persist.sys.usb.config adb
++
+ 
+     # Sensors
+     chown system system /sys/devices/platform/soc/soc:sensor_fb/adsp_notify
+diff --git a/init/init.oplus.sh b/init/init.oplus.sh
+index ae87bba..21fe246 100755
+--- a/init/init.oplus.sh
++++ b/init/init.oplus.sh
+@@ -5,6 +5,6 @@
+ # SPDX-License-Identifier: Apache-2.0
+ #
+ 
+-if grep -qE "androidboot.rf_version=(11|13|21)" /proc/cmdline; then
++if grep -q simcardnum.simcardnum=1 /proc/cmdline; then
+     setprop vendor.radio.multisim.config dsds
+ fi
+diff --git a/init/ueventd.oplus.rc b/init/ueventd.oplus.rc
+index 9809898..10cbdbc 100644
+--- a/init/ueventd.oplus.rc
++++ b/init/ueventd.oplus.rc
+@@ -13,3 +13,5 @@
+ 
+ # WiFi
+ firmware_directories /mnt/vendor/persist/copy/ /odm/etc/wifi/ /mnt/vendor/persist/ /vendor/firmware_mnt/image/
++
++/sys/kernel/oplus_display/notify_fppress    0660    system    system
+diff --git a/kernel/kernel-platform-board.mk b/kernel/kernel-platform-board.mk
+index 801e527..fb9c751 100644
+--- a/kernel/kernel-platform-board.mk
++++ b/kernel/kernel-platform-board.mk
+@@ -1,7 +1,7 @@
+ ifeq ($(TARGET_USES_KERNEL_PLATFORM),true)
+ 
+ ifeq ($(wildcard $(KERNEL_PREBUILT_DIR)/),)
+-$(warning $(KERNEL_PREBUILT_DIR) does not exist and TARGET_USES_KERNEL_PLATFORM=$(TARGET_USES_KERNEL_PLATFORM))
++# Kernel platform directory not found
+ else
+ ################################################################################
+ # UAPI headers
+diff --git a/kernel/kernel-platform-product.mk b/kernel/kernel-platform-product.mk
+index 727714c..8943a42 100644
+--- a/kernel/kernel-platform-product.mk
++++ b/kernel/kernel-platform-product.mk
+@@ -7,7 +7,7 @@ KERNEL_MODULES_INSTALL := dlkm
+ KERNEL_MODULES_OUT ?= $(PRODUCT_OUT)/$(KERNEL_MODULES_INSTALL)/lib/modules
+ 
+ ifeq ($(wildcard $(KERNEL_PREBUILT_DIR)/),)
+-$(warning $(KERNEL_PREBUILT_DIR) does not exist and TARGET_USES_KERNEL_PLATFORM=$(TARGET_USES_KERNEL_PLATFORM))
++# Kernel platform directory not found
+ else
+ 
+ 
+diff --git a/odm.prop b/odm.prop
+index 60a5868..befa5cf 100644
+--- a/odm.prop
++++ b/odm.prop
+@@ -22,7 +22,7 @@ vendor.media.vpp.osie.enable=0
+ vendor.media.vpp.sr.enable=0
+ 
+ # Radio
+-persist.vendor.radio.force_on_dc=true
++persist.vendor.radio.force_on_dc=false
+ persist.vendor.radio.poweron_opt=1
+ persist.vendor.radio.stack_id_0=0
+ persist.vendor.radio.stack_id_1=1
+diff --git a/overlay/FrameworksResTarget/res/values/config.xml b/overlay/FrameworksResTarget/res/values/config.xml
+index 8e58185..ddf83d3 100644
+--- a/overlay/FrameworksResTarget/res/values/config.xml
++++ b/overlay/FrameworksResTarget/res/values/config.xml
+@@ -61,4 +61,7 @@
+         <item>0:2:15</item> <!-- ID0:Fingerprint:Strong -->
+     </string-array>
+ 
++    <!-- Number of physical SIM slots on the device -->
++    <integer name="config_num_physical_slots">2</integer>
++
+ </resources>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+  <!-- OnePlus 11R (udon) device trees -->
+  <project name="Code-Breaker0/android_device_oneplus_udon"
+           path="device/oneplus/udon"
+           remote="github"
+           revision="lineage-22" />
+  <project name="Code-Breaker0/android_device_oneplus_sm8450-common"
+           path="device/oneplus/sm8450-common"
+           remote="github"
+           revision="lineage-22" />
+  <project name="Code-Breaker0/android_vendor_oneplus_udon"
+           path="vendor/oneplus/udon"
+           remote="github"
+           revision="lineage-22" />
+  <project name="Code-Breaker0/android_hardware_oplus"
+           path="hardware/oplus"
+           remote="github"
+           revision="lineage-22" />
+</manifest>

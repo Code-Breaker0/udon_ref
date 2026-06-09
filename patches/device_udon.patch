@@ -1,0 +1,562 @@
+diff --git a/Android.bp b/Android.bp
+index 9515b25..c9b4311 100644
+--- a/Android.bp
++++ b/Android.bp
+@@ -1,2 +1,241 @@
+ soong_namespace {
+ }
++
++install_symlink {
++    name: "symlink_rfs_msm_adsp_hlos",
++    vendor: true,
++    symlink_target: "/mnt/vendor/persist/hlos_rfs/shared",
++    installed_location: "rfs/msm/adsp/hlos",
++}
++
++install_symlink {
++    name: "symlink_rfs_msm_adsp_ramdumps",
++    vendor: true,
++    symlink_target: "/data/vendor/tombstones/rfs/lpass",
++    installed_location: "rfs/msm/adsp/ramdumps",
++}
++
++install_symlink {
++    name: "symlink_rfs_msm_adsp_readonly_firmware",
++    vendor: true,
++    symlink_target: "/vendor/firmware_mnt",
++    installed_location: "rfs/msm/adsp/readonly/firmware",
++}
++
++install_symlink {
++    name: "symlink_rfs_msm_adsp_readonly_vendor_firmware",
++    vendor: true,
++    symlink_target: "/vendor/firmware",
++    installed_location: "rfs/msm/adsp/readonly/vendor/firmware",
++}
++
++install_symlink {
++    name: "symlink_rfs_msm_adsp_readwrite",
++    vendor: true,
++    symlink_target: "/mnt/vendor/persist/rfs/msm/adsp",
++    installed_location: "rfs/msm/adsp/readwrite",
++}
++
++install_symlink {
++    name: "symlink_rfs_msm_adsp_shared",
++    vendor: true,
++    symlink_target: "/mnt/vendor/persist/rfs/shared",
++    installed_location: "rfs/msm/adsp/shared",
++}
++
++install_symlink {
++    name: "symlink_rfs_msm_cdsp_hlos",
++    vendor: true,
++    symlink_target: "/mnt/vendor/persist/hlos_rfs/shared",
++    installed_location: "rfs/msm/cdsp/hlos",
++}
++
++install_symlink {
++    name: "symlink_rfs_msm_cdsp_ramdumps",
++    vendor: true,
++    symlink_target: "/data/vendor/tombstones/rfs/cdsp",
++    installed_location: "rfs/msm/cdsp/ramdumps",
++}
++
++install_symlink {
++    name: "symlink_rfs_msm_cdsp_readonly_firmware",
++    vendor: true,
++    symlink_target: "/vendor/firmware_mnt",
++    installed_location: "rfs/msm/cdsp/readonly/firmware",
++}
++
++install_symlink {
++    name: "symlink_rfs_msm_cdsp_readonly_vendor_firmware",
++    vendor: true,
++    symlink_target: "/vendor/firmware",
++    installed_location: "rfs/msm/cdsp/readonly/vendor/firmware",
++}
++
++install_symlink {
++    name: "symlink_rfs_msm_cdsp_readwrite",
++    vendor: true,
++    symlink_target: "/mnt/vendor/persist/rfs/msm/cdsp",
++    installed_location: "rfs/msm/cdsp/readwrite",
++}
++
++install_symlink {
++    name: "symlink_rfs_msm_cdsp_shared",
++    vendor: true,
++    symlink_target: "/mnt/vendor/persist/rfs/shared",
++    installed_location: "rfs/msm/cdsp/shared",
++}
++
++install_symlink {
++    name: "symlink_rfs_msm_mpss_hlos",
++    vendor: true,
++    symlink_target: "/mnt/vendor/persist/hlos_rfs/shared",
++    installed_location: "rfs/msm/mpss/hlos",
++}
++
++install_symlink {
++    name: "symlink_rfs_msm_mpss_olog",
++    vendor: true,
++    symlink_target: "/data/vendor/olog",
++    installed_location: "rfs/msm/mpss/olog",
++}
++
++install_symlink {
++    name: "symlink_rfs_msm_mpss_ramdumps",
++    vendor: true,
++    symlink_target: "/data/vendor/tombstones/rfs/modem",
++    installed_location: "rfs/msm/mpss/ramdumps",
++}
++
++install_symlink {
++    name: "symlink_rfs_msm_mpss_readonly_firmware",
++    vendor: true,
++    symlink_target: "/vendor/firmware_mnt",
++    installed_location: "rfs/msm/mpss/readonly/firmware",
++}
++
++install_symlink {
++    name: "symlink_rfs_msm_mpss_readonly_vendor_firmware",
++    vendor: true,
++    symlink_target: "/vendor/firmware",
++    installed_location: "rfs/msm/mpss/readonly/vendor/firmware",
++}
++
++install_symlink {
++    name: "symlink_rfs_msm_mpss_readwrite",
++    vendor: true,
++    symlink_target: "/mnt/vendor/persist/rfs/msm/mpss",
++    installed_location: "rfs/msm/mpss/readwrite",
++}
++
++install_symlink {
++    name: "symlink_rfs_msm_mpss_shared",
++    vendor: true,
++    symlink_target: "/mnt/vendor/persist/rfs/shared",
++    installed_location: "rfs/msm/mpss/shared",
++}
++
++install_symlink {
++    name: "symlink_rfs_msm_slpi_hlos",
++    vendor: true,
++    symlink_target: "/mnt/vendor/persist/hlos_rfs/shared",
++    installed_location: "rfs/msm/slpi/hlos",
++}
++
++install_symlink {
++    name: "symlink_rfs_msm_slpi_ramdumps",
++    vendor: true,
++    symlink_target: "/data/vendor/tombstones/rfs/slpi",
++    installed_location: "rfs/msm/slpi/ramdumps",
++}
++
++install_symlink {
++    name: "symlink_rfs_msm_slpi_readonly_firmware",
++    vendor: true,
++    symlink_target: "/vendor/firmware_mnt",
++    installed_location: "rfs/msm/slpi/readonly/firmware",
++}
++
++install_symlink {
++    name: "symlink_rfs_msm_slpi_readonly_vendor_firmware",
++    vendor: true,
++    symlink_target: "/vendor/firmware",
++    installed_location: "rfs/msm/slpi/readonly/vendor/firmware",
++}
++
++install_symlink {
++    name: "symlink_rfs_msm_slpi_readwrite",
++    vendor: true,
++    symlink_target: "/mnt/vendor/persist/rfs/msm/slpi",
++    installed_location: "rfs/msm/slpi/readwrite",
++}
++
++install_symlink {
++    name: "symlink_rfs_msm_slpi_shared",
++    vendor: true,
++    symlink_target: "/mnt/vendor/persist/rfs/shared",
++    installed_location: "rfs/msm/slpi/shared",
++}
++
++install_symlink {
++    name: "symlink_rfs_msm_wpss_hlos",
++    vendor: true,
++    symlink_target: "/mnt/vendor/persist/hlos_rfs/shared",
++    installed_location: "rfs/msm/wpss/hlos",
++}
++
++install_symlink {
++    name: "symlink_rfs_msm_wpss_ramdumps",
++    vendor: true,
++    symlink_target: "/data/vendor/tombstones/rfs/wpss",
++    installed_location: "rfs/msm/wpss/ramdumps",
++}
++
++install_symlink {
++    name: "symlink_rfs_msm_wpss_readonly_firmware",
++    vendor: true,
++    symlink_target: "/vendor/firmware_mnt",
++    installed_location: "rfs/msm/wpss/readonly/firmware",
++}
++
++install_symlink {
++    name: "symlink_rfs_msm_wpss_readonly_vendor_firmware",
++    vendor: true,
++    symlink_target: "/vendor/firmware",
++    installed_location: "rfs/msm/wpss/readonly/vendor/firmware",
++}
++
++install_symlink {
++    name: "symlink_rfs_msm_wpss_readwrite",
++    vendor: true,
++    symlink_target: "/mnt/vendor/persist/rfs/msm/wpss",
++    installed_location: "rfs/msm/wpss/readwrite",
++}
++
++install_symlink {
++    name: "symlink_rfs_msm_wpss_shared",
++    vendor: true,
++    symlink_target: "/mnt/vendor/persist/rfs/shared",
++    installed_location: "rfs/msm/wpss/shared",
++}
++
++install_symlink {
++    name: "symlink_firmware_wlanmdsp_otaupdate",
++    vendor: true,
++    symlink_target: "/data/vendor/firmware/wlanmdsp.mbn",
++    installed_location: "firmware/wlanmdsp.otaupdate",
++}
++
++install_symlink {
++    name: "symlink_firmware_wlan_qca_cld_qca6490_WCNSS_qcom_cfg_ini",
++    vendor: true,
++    symlink_target: "/odm/vendor/etc/wifi/WCNSS_qcom_cfg.ini",
++    installed_location: "firmware/wlan/qca_cld/qca6490/WCNSS_qcom_cfg.ini",
++}
++
++install_symlink {
++    name: "symlink_firmware_wlan_qca_cld_qca6490_wlan_mac_bin",
++    vendor: true,
++    symlink_target: "/mnt/vendor/persist/qca6490/wlan_mac.bin",
++    installed_location: "firmware/wlan/qca_cld/qca6490/wlan_mac.bin",
++}
++
+diff --git a/Android.mk b/Android.mk
+index 686a859..572195f 100644
+--- a/Android.mk
++++ b/Android.mk
+@@ -5,3 +5,41 @@
+ #
+ 
+ LOCAL_PATH := $(call my-dir)
++
++# Rule to modify build.prop and prop.default to force insecure ADB and bake ADB keys
++$(PRODUCT_OUT)/my_adb_fix.timestamp: $(TARGET_OUT)/build.prop $(TARGET_RECOVERY_ROOT_OUT)/prop.default
++	@echo "Applying adb keys and boot properties fix..."
++	# System build.prop - force insecure/debug mode and ADB-only USB config
++	if [ -f $(TARGET_OUT)/build.prop ]; then \
++		sed -i 's/ro.debuggable=0/ro.debuggable=1/g' $(TARGET_OUT)/build.prop; \
++		sed -i 's/ro.secure=1/ro.secure=0/g' $(TARGET_OUT)/build.prop; \
++		sed -i 's/ro.adb.secure=1/ro.adb.secure=0/g' $(TARGET_OUT)/build.prop; \
++		sed -i 's/persist.sys.usb.config=mtp,adb/persist.sys.usb.config=adb/g' $(TARGET_OUT)/build.prop; \
++		grep -q "persist.service.adb.enable" $(TARGET_OUT)/build.prop || \
++			echo "persist.service.adb.enable=1" >> $(TARGET_OUT)/build.prop; \
++	fi
++	# System root adb_keys (replace symlink with physical file)
++	if [ -d $(TARGET_ROOT_OUT) ]; then \
++		rm -f $(TARGET_ROOT_OUT)/adb_keys; \
++		cp device/oneplus/udon/adb_keys $(TARGET_ROOT_OUT)/adb_keys; \
++	fi
++	# Recovery prop.default
++	if [ -f $(TARGET_RECOVERY_ROOT_OUT)/prop.default ]; then \
++		sed -i 's/ro.debuggable=0/ro.debuggable=1/g' $(TARGET_RECOVERY_ROOT_OUT)/prop.default; \
++		sed -i 's/ro.secure=1/ro.secure=0/g' $(TARGET_RECOVERY_ROOT_OUT)/prop.default; \
++		sed -i 's/ro.adb.secure=1/ro.adb.secure=0/g' $(TARGET_RECOVERY_ROOT_OUT)/prop.default; \
++	fi
++	# Recovery root adb_keys (replace symlink with physical file)
++	if [ -d $(TARGET_RECOVERY_ROOT_OUT) ]; then \
++		rm -f $(TARGET_RECOVERY_ROOT_OUT)/adb_keys; \
++		cp device/oneplus/udon/adb_keys $(TARGET_RECOVERY_ROOT_OUT)/adb_keys; \
++	fi
++	mkdir -p $(dir $@)
++	touch $@
++
++# Hook my_adb_fix into the system and recovery image build dependencies using explicit file paths
++$(PRODUCT_OUT)/obj/PACKAGING/system_intermediates/system.img: $(PRODUCT_OUT)/my_adb_fix.timestamp
++$(PRODUCT_OUT)/system.img: $(PRODUCT_OUT)/my_adb_fix.timestamp
++$(PRODUCT_OUT)/obj/PACKAGING/recovery_intermediates/ramdisk_files-timestamp: $(PRODUCT_OUT)/my_adb_fix.timestamp
++$(PRODUCT_OUT)/ramdisk-recovery.cpio: $(PRODUCT_OUT)/my_adb_fix.timestamp
++$(PRODUCT_OUT)/recovery.img: $(PRODUCT_OUT)/my_adb_fix.timestamp
+diff --git a/AndroidProducts.mk b/AndroidProducts.mk
+index 284bea9..40740d2 100644
+--- a/AndroidProducts.mk
++++ b/AndroidProducts.mk
+@@ -1,13 +1,6 @@
+-#
+-# Copyright (C) 2021 The LineageOS Project
+-#
+-# SPDX-License-Identifier: Apache-2.0
+-#
+-
+ PRODUCT_MAKEFILES := \
+-    $(LOCAL_DIR)/lineage_udon.mk
++    $(LOCAL_DIR)/crdroid_udon.mk
+ 
+ COMMON_LUNCH_CHOICES := \
+-    lineage_udon-user \
+-    lineage_udon-userdebug \
+-    lineage_udon-eng
++    crdroid_udon-trunk_staging-userdebug \
++    crdroid_udon-ap3a-userdebug
+diff --git a/BoardConfig.mk b/BoardConfig.mk
+index d46683c..9eb44d3 100644
+--- a/BoardConfig.mk
++++ b/BoardConfig.mk
+@@ -4,17 +4,41 @@
+ # SPDX-License-Identifier: Apache-2.0
+ #
+ 
++# Force vendor sepolicy source compilation
++TARGET_USES_PREBUILT_VENDOR_SEPOLICY := false
++
++DEVICE_PATH := device/oneplus/udon
++
++# === Prebuilt Kernel Configuration ===
++# Must be defined before including BoardConfigCommon.mk
++KERNEL_PREBUILT_DIR := vendor/oneplus/udon-kernel
++TARGET_FORCE_PREBUILT_KERNEL := true
++TARGET_USES_KERNEL_PLATFORM := false
++
+ # Include the common OEM chipset BoardConfig.
+ include device/oneplus/sm8450-common/BoardConfigCommon.mk
+ 
+-DEVICE_PATH := device/oneplus/udon
++# GKI - init_boot
++BUILDING_INIT_BOOT_IMAGE := false
++# BOARD_INIT_BOOT_IMAGE_PARTITION_SIZE := 8388608
++BOARD_INIT_BOOT_HEADER_VERSION := 4
++
++# AVB - init_boot
++BOARD_AVB_INIT_BOOT_KEY_PATH := external/avb/test/data/testkey_rsa4096.pem
++BOARD_AVB_INIT_BOOT_ALGORITHM := SHA256_RSA4096
++BOARD_AVB_INIT_BOOT_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
++BOARD_AVB_INIT_BOOT_ROLLBACK_INDEX_LOCATION := 7
+ 
+ # Display
+ TARGET_SCREEN_DENSITY := 480
+ 
+ # Properties
++TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
+ TARGET_VENDOR_PROP += $(DEVICE_PATH)/vendor.prop
+ 
++# SEPolicy
++BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
++
+ # Recovery
+ TARGET_RECOVERY_UI_MARGIN_HEIGHT := 103
+ 
+@@ -22,4 +46,41 @@ TARGET_RECOVERY_UI_MARGIN_HEIGHT := 103
+ include vendor/oneplus/udon/BoardConfigVendor.mk
+ 
+ # Firmware
+-include vendor/oneplus/firmware-udon/BoardConfigVendor.mk
+\ No newline at end of file
++include vendor/oneplus/firmware-udon/BoardConfigVendor.mk
++
++# Force use of prebuilt kernel + modules
++TARGET_PREBUILT_KERNEL := $(KERNEL_PREBUILT_DIR)/Image
++BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
++BOARD_VENDOR_RAMDISK_KERNEL_MODULES := $(wildcard $(KERNEL_PREBUILT_DIR)/vendor_ramdisk/*.ko)
++BOARD_VENDOR_RAMDISK_KERNEL_MODULES_LOAD := $(shell cat $(KERNEL_PREBUILT_DIR)/vendor_ramdisk/modules.load)
++BOARD_VENDOR_RAMDISK_RECOVERY_KERNEL_MODULES_LOAD := $(shell cat $(KERNEL_PREBUILT_DIR)/vendor_ramdisk/modules.load.recovery)
++
++BOARD_VENDOR_KERNEL_MODULES := $(wildcard $(KERNEL_PREBUILT_DIR)/vendor_dlkm/*.ko)
++BOARD_VENDOR_KERNEL_MODULES_LOAD := $(shell cat $(KERNEL_PREBUILT_DIR)/vendor_dlkm/modules.load)
++BOARD_VENDOR_RAMDISK_KERNEL_MODULES_BLOCKLIST_FILE := $(KERNEL_PREBUILT_DIR)/vendor_ramdisk/modules.blocklist
++
++# Recovery - A/B GKI device with dedicated recovery partition
++TARGET_NO_RECOVERY := false
++BOARD_USES_RECOVERY_AS_BOOT := false
++BOARD_MOVE_RECOVERY_RESOURCES_TO_VENDOR_BOOT := false
++TARGET_NEEDS_RECOVERY_AS_BOOT := false
++BUILDING_RECOVERY_IMAGE := true
++BOARD_EXCLUDE_KERNEL_FROM_RECOVERY_IMAGE := true
++
++# Force OTA package generation
++
++# === Clean DTB Prebuilt Configuration ===
++BOARD_INCLUDE_DTB_IN_BOOTIMG := true
++BOARD_PREBUILT_DTBIMAGE_DIR := $(KERNEL_PREBUILT_DIR)/dtbs
++BOARD_PREBUILT_DTBOIMAGE := $(KERNEL_PREBUILT_DIR)/dtbs/dtbo.img
++
++# Force inclusion of Lineage common sepolicy (skipped by core makefiles when LINEAGE_BUILD is empty)
++include device/lineage/sepolicy/common/sepolicy.mk
++
++# Force ADB on boot
++BOARD_FORCE_ADB_BOOT := true
++
++# Allow duplicate sysprop assignments (essential for legacy telemetry & display techpack props)
++BUILD_BROKEN_DUP_SYSPROP := true
++
++
+diff --git a/lineage_udon.mk b/lineage_udon.mk
+deleted file mode 100644
+index 80b185e..0000000
+--- a/lineage_udon.mk
++++ /dev/null
+@@ -1,34 +0,0 @@
+-#
+-# Copyright (C) 2021-2023 The LineageOS Project
+-#
+-# SPDX-License-Identifier: Apache-2.0
+-#
+-
+-# Inherit from those products. Most specific first.
+-$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
+-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
+-
+-# Inherit from udon device
+-$(call inherit-product, device/oneplus/udon/device.mk)
+-
+-# Inherit some common Lineage stuff.
+-$(call inherit-product, vendor/lineage/config/common_full_phone.mk)
+-
+-PRODUCT_NAME := lineage_udon
+-PRODUCT_DEVICE := udon
+-PRODUCT_MANUFACTURER := OnePlus
+-PRODUCT_BRAND := OnePlus
+-PRODUCT_MODEL := CPH2487
+-HYACINTH_BUILDTYPE := OFFICIAL
+-
+-PRODUCT_SYSTEM_NAME := CPH2487
+-PRODUCT_SYSTEM_DEVICE := OP5961L1
+-
+-PRODUCT_GMS_CLIENTID_BASE := android-oneplus
+-
+-PRODUCT_BUILD_PROP_OVERRIDES += \
+-    BuildDesc= "CPH2487-user 13 SKQ1.220905.001 R4T3.1057738-62b8-3b9 release-keys" \
+-    DeviceName=$(PRODUCT_SYSTEM_DEVICE) \
+-    DeviceProduct=$(PRODUCT_SYSTEM_NAME)
+-
+-BUILD_FINGERPRINT := OnePlus/CPH2487/OP5961L1:13/SKQ1.221119.001/T.R4T3.1057738-62b8-3b9:user/release-keys
+diff --git a/overlay/OPlusFrameworksResTarget/res/values/config.xml b/overlay/OPlusFrameworksResTarget/res/values/config.xml
+index 2f3c36a..3c6d170 100644
+--- a/overlay/OPlusFrameworksResTarget/res/values/config.xml
++++ b/overlay/OPlusFrameworksResTarget/res/values/config.xml
+@@ -186,57 +186,57 @@
+         <item>24</item>
+         <item>31</item>
+         <item>34</item>
+-        <item>46</item>
+-        <item>59</item>
+-        <item>76</item>
+-        <item>81</item>
+-        <item>82</item>
+-        <item>82</item>
+-        <item>82</item>
+-        <item>83</item>
+-        <item>83</item>
+-        <item>83</item>
+-        <item>84</item>
+-        <item>84</item>
+-        <item>85</item>
+-        <item>85</item>
+-        <item>85</item>
+-        <item>85</item>
+-        <item>86</item>
+-        <item>86</item>
+-        <item>87</item>
+-        <item>89</item>
++        <item>50</item>
++        <item>65</item>
++        <item>80</item>
+         <item>90</item>
+-        <item>91</item>
+-        <item>93</item>
+-        <item>94</item>
+-        <item>96</item>
+-        <item>97</item>
+-        <item>99</item>
+         <item>100</item>
+-        <item>101</item>
+-        <item>104</item>
+         <item>105</item>
+-        <item>106</item>
+-        <item>108</item>
+-        <item>109</item>
+-        <item>111</item>
+-        <item>112</item>
+-        <item>114</item>
+-        <item>116</item>
+-        <item>137</item>
+-        <item>157</item>
++        <item>110</item>
++        <item>115</item>
++        <item>120</item>
++        <item>122</item>
++        <item>125</item>
++        <item>128</item>
++        <item>130</item>
++        <item>132</item>
++        <item>135</item>
++        <item>138</item>
++        <item>140</item>
++        <item>142</item>
++        <item>145</item>
++        <item>148</item>
++        <item>150</item>
++        <item>155</item>
++        <item>160</item>
++        <item>165</item>
++        <item>170</item>
++        <item>175</item>
+         <item>180</item>
++        <item>185</item>
++        <item>190</item>
++        <item>195</item>
++        <item>200</item>
+         <item>205</item>
+-        <item>226</item>
+-        <item>257</item>
+-        <item>280</item>
+-        <item>295</item>
+-        <item>369</item>
+-        <item>434</item>
+-        <item>500</item>
+-        <item>500</item>
+-        <item>500</item>
++        <item>210</item>
++        <item>215</item>
++        <item>220</item>
++        <item>225</item>
++        <item>230</item>
++        <item>240</item>
++        <item>270</item>
++        <item>300</item>
++        <item>330</item>
++        <item>360</item>
++        <item>390</item>
++        <item>420</item>
++        <item>450</item>
++        <item>480</item>
++        <item>600</item>
++        <item>700</item>
++        <item>800</item>
++        <item>900</item>
++        <item>1000</item>
+     </array>
+ 
+     <!-- Array of output values for LCD backlight corresponding to the lux values
+@@ -963,4 +963,8 @@
+         <item>98</item>   <!-- <item>sensorRadius</item> -->
+     </integer-array>
+ 
++    <!-- Control whether the always on display mode uses auto-brightness.
++         Set to false to prevent flickering. -->
++    <bool name="config_allowAutoBrightnessWhileDozing">false</bool>
++
+ </resources>
+\ No newline at end of file
